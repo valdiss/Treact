@@ -1,25 +1,26 @@
 import React, {Component} from 'react';
-import Task from './Task.js';
 
 class ListToDo extends Component {
 
     state = {todo : this.props.todo}
 
-    leClick(event){
-      const num = event.target.value;
-      console.log("le num de ListToDo: "+num);
-      this.props.onClick(num);
+    componentWillReceiveProps(nextProps) {
+      this.setState({todo: nextProps.todo});
+    }
+
+    taskDoneHandler = (event) => {
+      const taskDone = event.target.innerHTML;
+      console.log("le innerHTML de ListToDo: "+taskDone);
+      this.props.onClick(taskDone);
     }
 
     render() {
 
-        const tasks = this.state.todo;
-        const listItems = tasks.map((task) => <div className='task'><Task value={task} onClick={(num)=>this.leClick(num)}/></div>);
         return (
             <div className='col-md-4 todo'>
                 <h2>To do</h2>
                 <div className='grey'>
-                    {listItems}
+                    <button onClick={(e) => this.taskDoneHandler(e)}>{this.state.todo}</button>
                 </div>
             </div>
         );

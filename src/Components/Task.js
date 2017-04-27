@@ -1,6 +1,11 @@
 import React, {Component} from 'react';
 
 class Task extends Component {
+
+    componentWillReceiveProps(nextProps) {
+      this.setState({todo: nextProps.todo});
+    }
+  
     handleClick(event){
       console.log(event.target.innerText);
       const num = event.target.innerText;

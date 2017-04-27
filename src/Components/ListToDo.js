@@ -9,7 +9,7 @@ class ListToDo extends Component {
     }
 
     taskDoneHandler = (event) => {
-      const taskDone = event.target.innerHTML;
+      const taskDone = event.target.textContent;
       console.log("le innerHTML de ListToDo: "+taskDone);
       this.props.onClick(taskDone);
     }

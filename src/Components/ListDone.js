@@ -1,21 +1,28 @@
 import React, {Component} from 'react';
-import Task from './Task.js';
-
 
 class ListDone extends Component {
+  state = {done : this.props.done}
 
-    render() {
-        const tasks = this.props.done;
-        const listItems = tasks.map((task) => <div className='task'><Task value={task} onClick={e=>this.handleClick(e)}/></div>);
-        return (
-            <div className='col-md-4 done'>
-                <h2>Done</h2>
-                <div className='grey'>
-                    {listItems}
-                </div>
-            </div>
-        );
-    }
+  componentWillReceiveProps(nextProps) {
+    this.setState({done: nextProps.done});
+  }
+
+  taskUndoneHandler = (event) => {
+    const taskUndone = event.target.textContent;
+    console.log("le innerHTML de ListDone: "+taskUndone);
+    this.props.onClick(taskUndone);
+  }
+
+  render() {
+    return (
+      <div className='col-md-4 done'>
+        <h2>Done</h2>
+        <div className='grey'>
+          <button onClick={(e) => this.taskUndoneHandler(e)}>{this.state.done}</button>
+        </div>
+      </div>
+    );
+  }
 }
 
 export default ListDone;

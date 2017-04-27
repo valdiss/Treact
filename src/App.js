@@ -12,17 +12,21 @@ class App extends Component {
       'vaiselle'
     ],
     done: [
-      'menage', 'rangement'
+      'menage'
     ]
   };
 
   taskDonehandler(taskDone) {
-    this.setState({done: [taskDone], todo: ''});
+    this.setState({done: [this.state.done,taskDone], todo: ''});
+  }
+
+  taskUndonehandler(taskUndone) {
+    this.setState({done: '', todo: [this.state.todo, taskUndone]});
   }
 
   handleNewTask = (task) => {
     console.log("Je met à jour le state de l'app !!!!" + task);
-    this.setState({todo: task});
+    this.setState({todo: [this.state.todo, task]});
   }
 
   render() {
@@ -32,12 +36,12 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo"/>
           <h2>Welcome to Treact!</h2>
         </div>
-        <p className="App-intro">
+        <div className="App-intro">
           <ListToDo onClick={taskDone => this.taskDonehandler(taskDone)} todo={this.state.todo}/>
-          <ListDone done={this.state.done}/>
+          <ListDone onClick={taskUndone => this.taskUndonehandler(taskUndone)} done={this.state.done}/>
           <CurrentTask/>
           <NewTask onClick={(task) => this.handleNewTask(task)} newTask={this.state.newTask}/>
-        </p>
+        </div>
       </div>
     );
   }
